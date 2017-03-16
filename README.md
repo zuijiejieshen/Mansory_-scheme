@@ -24,3 +24,147 @@
 下图具体项目中实现
 
 ![](http://i1.piimg.com/567571/bfad4d4e49cb73df.png)
+
+
+
+
+###实现代码如下
+
+```
+- (void)createdTitleView{
+
+    [self.contentView addSubview:self.typeLabel];
+    [self.contentView addSubview:self.peopleView];
+    [self.contentView addSubview:self.lineView];
+    [self.contentView addSubview:self.infoLabel];
+
+    [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView).offset(2);
+        make.left.equalTo(self.contentView).offset(25);
+    }];    
+    [self.peopleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contentView);
+        make.top.equalTo(self.typeLabel.mas_bottom);
+        self.cPeopleView = make.height.equalTo(@0).priority(UILayoutPriorityRequired);
+        [self.cPeopleView deactivate];
+    }];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contentView);
+        make.top.equalTo(self.peopleView.mas_bottom);
+        self.cLineView = make.height.equalTo(@0).priority(UILayoutPriorityRequired);
+        [self.cLineView deactivate];
+    }];
+    [self.infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(10);
+        make.right.equalTo(self.contentView).offset(-10);
+        make.top.equalTo(self.lineView.mas_bottom).offset(10);
+    }];
+
+}
+```
+
+
+
+
+```
+- (UIView *)peopleView{
+    if (_peopleView == nil) {
+        _peopleView = [[UIView alloc] init];
+        _peopleView.backgroundColor = [UIColor redColor];
+        
+        [_peopleView addSubview:self.peopleLabel];
+        [_peopleView addSubview:self.peopleButton];
+        [self.peopleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_peopleView).offset(12);
+            make.right.equalTo(_peopleView).offset(-32);
+            make.top.equalTo(_peopleView).offset(7);
+            make.bottom.equalTo(_peopleView);
+        }];
+        
+        [self.peopleButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(_peopleView).offset(-12);
+            make.width.height.equalTo(@15);
+            make.top.equalTo(_peopleView).offset(7);
+        }];
+        
+    }
+    return _peopleView;
+}
+
+- (UIView *)peopleView{
+    if (_peopleView == nil) {
+        _peopleView = [[UIView alloc] init];
+        _peopleView.backgroundColor = [UIColor redColor];
+        
+        [_peopleView addSubview:self.peopleLabel];
+        [_peopleView addSubview:self.peopleButton];
+        [self.peopleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_peopleView).offset(12);
+            make.right.equalTo(_peopleView).offset(-32);
+            make.top.equalTo(_peopleView).offset(7);
+            make.bottom.equalTo(_peopleView);
+        }];
+        
+        [self.peopleButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(_peopleView).offset(-12);
+            make.width.height.equalTo(@15);
+            make.top.equalTo(_peopleView).offset(7);
+        }];
+        
+    }
+    return _peopleView;
+}
+
+- (UILabel *)peopleLabel{
+    if (_peopleLabel == nil) {
+        _peopleLabel = [UIFactory labelWithString:@"" size:14 color:@"96c72c" align:0];
+    }
+    return _peopleLabel;
+}
+
+- (UIButton *)peopleButton{
+    if (_peopleButton == nil) {
+        _peopleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_peopleButton setImage:[UIImage imageNamed:@"mission_people_down"] forState:UIControlStateNormal];
+        [_peopleButton addTarget:self action:@selector(peopleShowOrHiddenClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _peopleButton;
+}
+
+- (UIView *)lineView{
+    if (_lineView == nil) {
+        _lineView = [[UIView alloc] init];
+        _lineView.backgroundColor = [UIColor yellowColor];
+        
+        [_lineView addSubview:self.lineBtn1];
+        [_lineView addSubview:self.lineBtn2];
+
+        [self.lineBtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_lineView).offset(12);
+            make.top.equalTo(_lineView).offset(7);
+            make.height.equalTo(@18);
+            make.bottom.equalTo(_lineView);
+        }];
+        
+        [self.lineBtn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.lineBtn1.mas_right).offset(10);
+            make.top.equalTo(_lineView).offset(7);
+            make.height.equalTo(@18);
+        }];
+    }
+    return _lineView;
+}
+
+
+- (UIButton *)lineBtn1{
+    if (_lineBtn1 == nil) {
+        _lineBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_lineBtn1 setBackgroundImage:[UIImage imageNamed:@"rw_lvsekuang"] forState:UIControlStateNormal];
+        [_lineBtn1 setTitleColor:[UIColor hx_colorWithHexRGBAString:@"96c72c"] forState:UIControlStateNormal];
+        _lineBtn1.titleLabel.font = [UIFont systemFontOfSize:12];
+    }
+    return _lineBtn1;
+}
+
+```
+
